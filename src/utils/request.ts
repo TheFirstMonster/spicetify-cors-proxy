@@ -1,5 +1,9 @@
+const blacklistedTargets = (
+  process.env.BLACKLISTED_TARGETS?.replaceAll(' ', '').split(',') ?? []
+).concat(['127.0.0.1', 'localhost', '[::1]']);
+
 export function checkBlacklistedTarget(target: string) {
-	return ["genius.com", "127.0.0.1", "localhost", "[::1]"].find(v => target.includes(v));
+  return blacklistedTargets.find((v) => target.includes(v));
 }
 
 export function isValidURL(target: string) {
